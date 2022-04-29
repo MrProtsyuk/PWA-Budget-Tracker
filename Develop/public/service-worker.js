@@ -20,7 +20,15 @@ const FILES_TO_CACHE = [
 ];
 
 //Install service worker
-
+self.addEventListener('install', function(e) {
+    e.waitUntil(
+        caches.open(CACHE_NAME).then(function (cache) {
+            console.log('Cache installing');
+            return cache.addAll(FILES_TO_CACHE);
+        })
+    );
+    self.skipWaiting();
+})
 //Activate Service Worker
 
 //Intercept Fetch
